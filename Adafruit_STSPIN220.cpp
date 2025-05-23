@@ -36,8 +36,8 @@
  * @param step_pin Arduino pin connected to STEP (step clock) input
  * @param dir_pin Arduino pin connected to DIR (direction) input
  */
-Adafruit_STSPIN220::Adafruit_STSPIN220(int number_of_steps, int step_pin,
-                                       int dir_pin) {
+Adafruit_STSPIN220::Adafruit_STSPIN220(int16_t number_of_steps, int16_t step_pin,
+                                       int16_t dir_pin) {
   _number_of_steps = number_of_steps;
   _step_pin = step_pin;
   _dir_pin = dir_pin;
@@ -70,10 +70,10 @@ Adafruit_STSPIN220::Adafruit_STSPIN220(int number_of_steps, int step_pin,
  * @param stby_reset_pin Arduino pin connected to STBY/RESET pin (optional, -1
  * if not used)
  */
-Adafruit_STSPIN220::Adafruit_STSPIN220(int number_of_steps, int step_pin,
-                                       int dir_pin, int mode1_pin,
-                                       int mode2_pin, int en_fault_pin,
-                                       int stby_reset_pin) {
+Adafruit_STSPIN220::Adafruit_STSPIN220(int16_t number_of_steps, int16_t step_pin,
+                                       int16_t dir_pin, int16_t mode1_pin,
+                                       int16_t mode2_pin, int16_t en_fault_pin,
+                                       int16_t stby_reset_pin) {
   _number_of_steps = number_of_steps;
   _step_pin = step_pin;
   _dir_pin = dir_pin;
@@ -117,14 +117,19 @@ Adafruit_STSPIN220::Adafruit_STSPIN220(int number_of_steps, int step_pin,
  * @brief Set the speed in revolutions per minute (Arduino Stepper compatible)
  * @param whatSpeed Speed in RPM
  */
-void Adafruit_STSPIN220::setSpeed(long whatSpeed) {
+void Adafruit_STSPIN220::setSpeed(int32_t whatSpeed) {
   if (whatSpeed <= 0) {
     _step_delay = 1000000;
   } else {
     // Account for microstepping - more microsteps means shorter delay per step
-    int microsteps = microstepsPerStep();
+    int16_t microsteps = microstepsPerStep();
     _step_delay =
-        ((60L * 1000L * 1000L) / (_number_of_steps * microsteps)) / whatSpeed;
+        ((60L * 1000L * 1000L) / ((uint32_t)_number_of_steps * (uint32_t)microsteps)) / (uint32_t)whatSpeed;
+    
+    // Enforce minimum step delay based on STSPIN220_STCK_MAX_FREQ_MHZ (1 MHz = 1 µs minimum)
+    if (_step_delay < 1) {
+      _step_delay = 1;
+    }
   }
 }
 
@@ -134,16 +139,16 @@ void Adafruit_STSPIN220::setSpeed(long whatSpeed) {
  * @param steps_to_move Number of steps to move (positive = forward, negative =
  * reverse)
  */
-void Adafruit_STSPIN220::step(int steps_to_move) {
-  int steps_left = abs(steps_to_move);
+void Adafruit_STSPIN220::step(int32_t steps_to_move) {
+  int32_t steps_left = abs(steps_to_move);
 
   digitalWrite(_dir_pin, steps_to_move > 0);
   delayMicroseconds(1);
 
   while (steps_left > 0) {
-    unsigned long now = micros();
+    uint32_t now = micros();
 
-    if (now - _last_step_time >= _step_delay) {
+    if ((now - _last_step_time) >= _step_delay) {
       singleStep();
 
       if (steps_to_move > 0) {
@@ -168,7 +173,7 @@ void Adafruit_STSPIN220::step(int steps_to_move) {
  * @brief Return the library version number (Arduino Stepper compatible)
  * @return Version number
  */
-int Adafruit_STSPIN220::version(void) {
+int16_t Adafruit_STSPIN220::version(void) {
   return 220;
 }
 
@@ -228,7 +233,7 @@ stspin220_step_mode_t Adafruit_STSPIN220::getStepMode() {
  * @brief Get the number of microsteps per full step for current mode
  * @return Microsteps per full step (1, 2, 4, 8, 16, 32, 64, 128, or 256)
  */
-int Adafruit_STSPIN220::microstepsPerStep() {
+int16_t Adafruit_STSPIN220::microstepsPerStep() {
   switch (_step_mode) {
     case STSPIN220_STEP_FULL:
       return 1;
@@ -267,13 +272,13 @@ void Adafruit_STSPIN220::singleStep() {
  * @param steps Number of steps to move (positive = forward, negative = reverse)
  * @param delay_us Delay between steps in microseconds
  */
-void Adafruit_STSPIN220::stepBlocking(int steps, unsigned long delay_us) {
-  int steps_left = abs(steps);
+void Adafruit_STSPIN220::stepBlocking(int32_t steps, unsigned long delay_us) {
+  int32_t steps_left = abs(steps);
 
   digitalWrite(_dir_pin, steps > 0);
   delayMicroseconds(1);
 
-  for (int i = 0; i < steps_left; i++) {
+  for (int32_t i = 0; i < steps_left; i++) {
     singleStep();
     delayMicroseconds(delay_us);
   }

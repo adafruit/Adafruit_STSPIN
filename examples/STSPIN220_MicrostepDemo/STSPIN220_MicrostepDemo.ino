@@ -78,12 +78,6 @@ void setup() {
   Serial.println("performing one rotation forward and backward for each mode.");
   Serial.println("Watch and listen to compare the smoothness!");
   Serial.println();
-  
-  // Set a moderate speed for demonstration
-  myStepper.setSpeed(30); // 30 RPM
-  
-  Serial.println("Starting demo in 3 seconds...");
-  delay(3000);
 }
 
 void loop() {
@@ -110,7 +104,7 @@ void loop() {
     Serial.println(" microsteps per full step)");
     
     // Calculate total microsteps for one full revolution
-    int totalMicrosteps = stepsPerRevolution * microsteps;
+    int32_t totalMicrosteps = (int32_t)stepsPerRevolution * (int32_t)microsteps;
     
     Serial.print("  → Forward rotation (");
     Serial.print(totalMicrosteps);
@@ -130,8 +124,8 @@ void loop() {
     delay(500); // Pause between modes
   }
   
-  Serial.println("Demo complete! Starting over in 5 seconds...");
+  Serial.println("Demo complete! Starting over in 2 seconds...");
   Serial.println("==============================================");
   Serial.println();
-  delay(5000);
+  delay(2000);
 }
