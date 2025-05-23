@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['setspeed',['setSpeed',['../class_adafruit___s_t_s_p_i_n220.html#abca117cfa29223743bbd0c68cb4df9ca',1,'Adafruit_STSPIN220']]],
+  ['setstepmode',['setStepMode',['../class_adafruit___s_t_s_p_i_n220.html#a7baf870f7c41e600f53708841bb6da3c',1,'Adafruit_STSPIN220']]],
+  ['singlestep',['singleStep',['../class_adafruit___s_t_s_p_i_n220.html#ac830a997197ad30fc39bc247b1a1c8ec',1,'Adafruit_STSPIN220']]],
+  ['standby',['standby',['../class_adafruit___s_t_s_p_i_n220.html#a89e99725beaa3152bc564b43bc144b01',1,'Adafruit_STSPIN220']]],
+  ['step',['step',['../class_adafruit___s_t_s_p_i_n220.html#a0e0fb949150c5223f87bf6ad5a5199af',1,'Adafruit_STSPIN220']]],
+  ['stepblocking',['stepBlocking',['../class_adafruit___s_t_s_p_i_n220.html#af3c62811a6994023c0c21442191ef2b2',1,'Adafruit_STSPIN220']]],
+  ['stspin220_5fdir_5fhold_5ftime_5fns',['STSPIN220_DIR_HOLD_TIME_NS',['../_adafruit___s_t_s_p_i_n220_8h.html#a45afa2b0d3717ebec2099a98ed37633d',1,'Adafruit_STSPIN220.h']]],
+  ['stspin220_5fdir_5fsetup_5ftime_5fns',['STSPIN220_DIR_SETUP_TIME_NS',['../_adafruit___s_t_s_p_i_n220_8h.html#a136b76b9ccf3f815644b7326b1ceec38',1,'Adafruit_STSPIN220.h']]],
+  ['stspin220_5fstck_5fmax_5ffreq_5fmhz',['STSPIN220_STCK_MAX_FREQ_MHZ',['../_adafruit___s_t_s_p_i_n220_8h.html#ae26c091b4d67f13d925f5013e704b54a',1,'Adafruit_STSPIN220.h']]],
+  ['stspin220_5fstck_5fmin_5fpulse_5fns',['STSPIN220_STCK_MIN_PULSE_NS',['../_adafruit___s_t_s_p_i_n220_8h.html#a118e02a6452a954637845408639253be',1,'Adafruit_STSPIN220.h']]],
+  ['stspin220_5fstep_5f1_5f128',['STSPIN220_STEP_1_128',['../_adafruit___s_t_s_p_i_n220_8h.html#ac40bed8de7017b6802a88c1c266923c2a1a51e2244d5c132546789f13e1f54a9f',1,'Adafruit_STSPIN220.h']]],
+  ['stspin220_5fstep_5f1_5f16',['STSPIN220_STEP_1_16',['../_adafruit___s_t_s_p_i_n220_8h.html#ac40bed8de7017b6802a88c1c266923c2a3379d435e51e12d3c373da97cb2719ef',1,'Adafruit_STSPIN220.h']]],
+  ['stspin220_5fstep_5f1_5f2',['STSPIN220_STEP_1_2',['../_adafruit___s_t_s_p_i_n220_8h.html#ac40bed8de7017b6802a88c1c266923c2a34c0439106a21ce66a74c6cc4dd66891',1,'Adafruit_STSPIN220.h']]],
+  ['stspin220_5fstep_5f1_5f256',['STSPIN220_STEP_1_256',['../_adafruit___s_t_s_p_i_n220_8h.html#ac40bed8de7017b6802a88c1c266923c2aa23f0135550e9ddce383b990fea0fd02',1,'Adafruit_STSPIN220.h']]],
+  ['stspin220_5fstep_5f1_5f32',['STSPIN220_STEP_1_32',['../_adafruit___s_t_s_p_i_n220_8h.html#ac40bed8de7017b6802a88c1c266923c2aef25d3dfcd33220ec76839228968976f',1,'Adafruit_STSPIN220.h']]],
+  ['stspin220_5fstep_5f1_5f4',['STSPIN220_STEP_1_4',['../_adafruit___s_t_s_p_i_n220_8h.html#ac40bed8de7017b6802a88c1c266923c2aa1aa8cdfa2ac17abfbac80359a57adc3',1,'Adafruit_STSPIN220.h']]],
+  ['stspin220_5fstep_5f1_5f64',['STSPIN220_STEP_1_64',['../_adafruit___s_t_s_p_i_n220_8h.html#ac40bed8de7017b6802a88c1c266923c2af199cedc6a7929c3c030653af06363f0',1,'Adafruit_STSPIN220.h']]],
+  ['stspin220_5fstep_5f1_5f8',['STSPIN220_STEP_1_8',['../_adafruit___s_t_s_p_i_n220_8h.html#ac40bed8de7017b6802a88c1c266923c2a5958d95bb04e4f3b0544117a18e4762d',1,'Adafruit_STSPIN220.h']]],
+  ['stspin220_5fstep_5ffull',['STSPIN220_STEP_FULL',['../_adafruit___s_t_s_p_i_n220_8h.html#ac40bed8de7017b6802a88c1c266923c2a695dc0b1d86c23215f0021a8d02b175e',1,'Adafruit_STSPIN220.h']]],
+  ['stspin220_5fstep_5fmode_5ft',['stspin220_step_mode_t',['../_adafruit___s_t_s_p_i_n220_8h.html#ac40bed8de7017b6802a88c1c266923c2',1,'Adafruit_STSPIN220.h']]],
+  ['stspin220_5ftoff_5fmax_5fus',['STSPIN220_TOFF_MAX_US',['../_adafruit___s_t_s_p_i_n220_8h.html#add23a90cc1448a722f8ab673af77273d',1,'Adafruit_STSPIN220.h']]],
+  ['stspin220_5ftoff_5fmin_5fus',['STSPIN220_TOFF_MIN_US',['../_adafruit___s_t_s_p_i_n220_8h.html#ae2dd297f182929702ff9512d8cc84710',1,'Adafruit_STSPIN220.h']]]
+];
