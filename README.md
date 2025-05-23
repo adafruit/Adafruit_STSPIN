@@ -51,4 +51,4 @@ Full documentation of the STSPIN220 sensor can be found in the [datasheet](https
 
 ## License
 
-This library is released under a BSD license. See the included LICENSE file for details.
+This library is released under a MIT license. See the included LICENSE file for details.
