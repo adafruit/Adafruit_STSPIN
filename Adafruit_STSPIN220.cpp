@@ -30,12 +30,14 @@
 #include "Adafruit_STSPIN220.h"
 
 /*!
- * @brief Construct a new Adafruit_STSPIN220 object with minimal pin configuration
+ * @brief Construct a new Adafruit_STSPIN220 object with minimal pin
+ * configuration
  * @param number_of_steps Number of steps per full revolution
  * @param step_pin Arduino pin connected to STEP (step clock) input
  * @param dir_pin Arduino pin connected to DIR (direction) input
  */
-Adafruit_STSPIN220::Adafruit_STSPIN220(int number_of_steps, int step_pin, int dir_pin) {
+Adafruit_STSPIN220::Adafruit_STSPIN220(int number_of_steps, int step_pin,
+                                       int dir_pin) {
   _number_of_steps = number_of_steps;
   _step_pin = step_pin;
   _dir_pin = dir_pin;
@@ -43,13 +45,13 @@ Adafruit_STSPIN220::Adafruit_STSPIN220(int number_of_steps, int step_pin, int di
   _mode2_pin = -1;
   _en_fault_pin = -1;
   _stby_reset_pin = -1;
-  
+
   _step_delay = 1000;
   _step_number = 0;
   _last_step_time = 0;
   _step_mode = STSPIN220_STEP_1_16;
   _enabled = true;
-  
+
   pinMode(_step_pin, OUTPUT);
   digitalWrite(_step_pin, HIGH);
   pinMode(_dir_pin, OUTPUT);
@@ -63,11 +65,14 @@ Adafruit_STSPIN220::Adafruit_STSPIN220(int number_of_steps, int step_pin, int di
  * @param dir_pin Arduino pin connected to DIR (direction) input
  * @param mode1_pin Arduino pin connected to MODE1 input
  * @param mode2_pin Arduino pin connected to MODE2 input
- * @param en_fault_pin Arduino pin connected to EN/FAULT pin (optional, -1 if not used)
- * @param stby_reset_pin Arduino pin connected to STBY/RESET pin (optional, -1 if not used)
+ * @param en_fault_pin Arduino pin connected to EN/FAULT pin (optional, -1 if
+ * not used)
+ * @param stby_reset_pin Arduino pin connected to STBY/RESET pin (optional, -1
+ * if not used)
  */
-Adafruit_STSPIN220::Adafruit_STSPIN220(int number_of_steps, int step_pin, int dir_pin,
-                                       int mode1_pin, int mode2_pin, int en_fault_pin,
+Adafruit_STSPIN220::Adafruit_STSPIN220(int number_of_steps, int step_pin,
+                                       int dir_pin, int mode1_pin,
+                                       int mode2_pin, int en_fault_pin,
                                        int stby_reset_pin) {
   _number_of_steps = number_of_steps;
   _step_pin = step_pin;
@@ -76,13 +81,13 @@ Adafruit_STSPIN220::Adafruit_STSPIN220(int number_of_steps, int step_pin, int di
   _mode2_pin = mode2_pin;
   _en_fault_pin = en_fault_pin;
   _stby_reset_pin = stby_reset_pin;
-  
+
   _step_delay = 1000;
   _step_number = 0;
   _last_step_time = 0;
   _step_mode = STSPIN220_STEP_1_16;
   _enabled = true;
-  
+
   pinMode(_step_pin, OUTPUT);
   digitalWrite(_step_pin, HIGH);
   pinMode(_dir_pin, OUTPUT);
@@ -91,16 +96,16 @@ Adafruit_STSPIN220::Adafruit_STSPIN220(int number_of_steps, int step_pin, int di
   digitalWrite(_mode1_pin, HIGH);
   pinMode(_mode2_pin, OUTPUT);
   digitalWrite(_mode2_pin, HIGH);
-  
+
   if (_en_fault_pin != -1) {
     pinMode(_en_fault_pin, INPUT_PULLUP);
   }
-  
+
   if (_stby_reset_pin != -1) {
     pinMode(_stby_reset_pin, OUTPUT);
     digitalWrite(_stby_reset_pin, HIGH);
   }
-  
+
   if (_mode1_pin != -1 && _mode2_pin != -1) {
     uint8_t mode_bits = (uint8_t)_step_mode;
     digitalWrite(_mode1_pin, mode_bits & 0x01);
@@ -118,26 +123,29 @@ void Adafruit_STSPIN220::setSpeed(long whatSpeed) {
   } else {
     // Account for microstepping - more microsteps means shorter delay per step
     int microsteps = microstepsPerStep();
-    _step_delay = ((60L * 1000L * 1000L) / (_number_of_steps * microsteps)) / whatSpeed;
+    _step_delay =
+        ((60L * 1000L * 1000L) / (_number_of_steps * microsteps)) / whatSpeed;
   }
 }
 
 /*!
- * @brief Move the motor a specified number of steps (Arduino Stepper compatible)
- * @param steps_to_move Number of steps to move (positive = forward, negative = reverse)
+ * @brief Move the motor a specified number of steps (Arduino Stepper
+ * compatible)
+ * @param steps_to_move Number of steps to move (positive = forward, negative =
+ * reverse)
  */
 void Adafruit_STSPIN220::step(int steps_to_move) {
   int steps_left = abs(steps_to_move);
-  
+
   digitalWrite(_dir_pin, steps_to_move > 0);
   delayMicroseconds(1);
-  
+
   while (steps_left > 0) {
     unsigned long now = micros();
-    
+
     if (now - _last_step_time >= _step_delay) {
       singleStep();
-      
+
       if (steps_to_move > 0) {
         _step_number++;
         if (_step_number == _number_of_steps) {
@@ -149,7 +157,7 @@ void Adafruit_STSPIN220::step(int steps_to_move) {
         }
         _step_number--;
       }
-      
+
       steps_left--;
       _last_step_time = now;
     }
@@ -160,9 +168,7 @@ void Adafruit_STSPIN220::step(int steps_to_move) {
  * @brief Return the library version number (Arduino Stepper compatible)
  * @return Version number
  */
-int Adafruit_STSPIN220::version(void) {
-  return 220;
-}
+int Adafruit_STSPIN220::version(void) { return 220; }
 
 /*!
  * @brief Set the microstepping mode
@@ -170,25 +176,28 @@ int Adafruit_STSPIN220::version(void) {
  * @return True if mode was set successfully, false if pins not available
  */
 bool Adafruit_STSPIN220::setStepMode(stspin220_step_mode_t mode) {
-  if (_stby_reset_pin == -1) return false;
-  
+  if (_stby_reset_pin == -1)
+    return false;
+
   uint8_t mode_bits = (uint8_t)mode;
-  
+
   // Check if we can set this mode with available pins
   if ((_mode1_pin == -1) || (_mode2_pin == -1)) {
-    // If mode1/mode2 pins not available, only allow modes where those bits are high (pulled up)
+    // If mode1/mode2 pins not available, only allow modes where those bits are
+    // high (pulled up)
     if ((mode_bits & 0x01) == 0 || (mode_bits & 0x02) == 0) {
       return false; // Mode requires low bits on unavailable pins
     }
   }
-  
-  Serial.println("reset"); delay(100);
+
+  Serial.println("reset");
+  delay(100);
   // Put device into standby/reset
   digitalWrite(_stby_reset_pin, LOW);
 
   delay(1);
-  
-  // Set all available mode pins (MODE1, MODE2, STEP/MODE3, DIR/MODE4) 
+
+  // Set all available mode pins (MODE1, MODE2, STEP/MODE3, DIR/MODE4)
   if (_mode1_pin != -1) {
     digitalWrite(_mode1_pin, mode_bits & 0x01);
   }
@@ -197,10 +206,10 @@ bool Adafruit_STSPIN220::setStepMode(stspin220_step_mode_t mode) {
   }
   digitalWrite(_step_pin, mode_bits & 0x04);
   digitalWrite(_dir_pin, mode_bits & 0x08);
-  
+
   // Come out of standby to latch the mode
   digitalWrite(_stby_reset_pin, HIGH);
-  
+
   _step_mode = mode;
   return true;
 }
@@ -209,9 +218,7 @@ bool Adafruit_STSPIN220::setStepMode(stspin220_step_mode_t mode) {
  * @brief Get the current microstepping mode
  * @return Current step mode
  */
-stspin220_step_mode_t Adafruit_STSPIN220::getStepMode() {
-  return _step_mode;
-}
+stspin220_step_mode_t Adafruit_STSPIN220::getStepMode() { return _step_mode; }
 
 /*!
  * @brief Get the number of microsteps per full step for current mode
@@ -219,16 +226,26 @@ stspin220_step_mode_t Adafruit_STSPIN220::getStepMode() {
  */
 int Adafruit_STSPIN220::microstepsPerStep() {
   switch (_step_mode) {
-    case STSPIN220_STEP_FULL:     return 1;
-    case STSPIN220_STEP_1_2:      return 2;
-    case STSPIN220_STEP_1_4:      return 4;
-    case STSPIN220_STEP_1_8:      return 8;
-    case STSPIN220_STEP_1_16:     return 16;
-    case STSPIN220_STEP_1_32:     return 32;
-    case STSPIN220_STEP_1_64:     return 64;
-    case STSPIN220_STEP_1_128:    return 128;
-    case STSPIN220_STEP_1_256:    return 256;
-    default:                      return 16; // Default to 1/16 step
+  case STSPIN220_STEP_FULL:
+    return 1;
+  case STSPIN220_STEP_1_2:
+    return 2;
+  case STSPIN220_STEP_1_4:
+    return 4;
+  case STSPIN220_STEP_1_8:
+    return 8;
+  case STSPIN220_STEP_1_16:
+    return 16;
+  case STSPIN220_STEP_1_32:
+    return 32;
+  case STSPIN220_STEP_1_64:
+    return 64;
+  case STSPIN220_STEP_1_128:
+    return 128;
+  case STSPIN220_STEP_1_256:
+    return 256;
+  default:
+    return 16; // Default to 1/16 step
   }
 }
 
@@ -248,10 +265,10 @@ void Adafruit_STSPIN220::singleStep() {
  */
 void Adafruit_STSPIN220::stepBlocking(int steps, unsigned long delay_us) {
   int steps_left = abs(steps);
-  
+
   digitalWrite(_dir_pin, steps > 0);
   delayMicroseconds(1);
-  
+
   for (int i = 0; i < steps_left; i++) {
     singleStep();
     delayMicroseconds(delay_us);
@@ -263,15 +280,16 @@ void Adafruit_STSPIN220::stepBlocking(int steps, unsigned long delay_us) {
  * @param state True to enable, false to disable (default: true)
  */
 void Adafruit_STSPIN220::enable(bool state) {
-  if (_en_fault_pin == -1) return;
-  
+  if (_en_fault_pin == -1)
+    return;
+
   if (state) {
     pinMode(_en_fault_pin, INPUT_PULLUP);
   } else {
     pinMode(_en_fault_pin, OUTPUT);
     digitalWrite(_en_fault_pin, LOW);
   }
-  
+
   _enabled = state;
 }
 
@@ -280,18 +298,21 @@ void Adafruit_STSPIN220::enable(bool state) {
  * @return True if enabled, false if disabled
  */
 bool Adafruit_STSPIN220::isEnabled() {
-  if (_en_fault_pin == -1) return true; // If no enable pin connected, assume enabled
-  
+  if (_en_fault_pin == -1)
+    return true; // If no enable pin connected, assume enabled
+
   return _enabled;
 }
 
 /*!
  * @brief Put the device into standby mode or wake it up
- * @param state True to enter standby (ultra-low power), false to wake up (default: true)
+ * @param state True to enter standby (ultra-low power), false to wake up
+ * (default: true)
  */
 void Adafruit_STSPIN220::standby(bool state) {
-  if (_stby_reset_pin == -1) return;
-  
+  if (_stby_reset_pin == -1)
+    return;
+
   if (state) {
     // Going into standby/reset - just set the pin low
     digitalWrite(_stby_reset_pin, LOW);
@@ -306,8 +327,9 @@ void Adafruit_STSPIN220::standby(bool state) {
  * @return True if fault detected, false if normal operation
  */
 bool Adafruit_STSPIN220::isFault() {
-  if (_en_fault_pin == -1) return false;
-  
+  if (_en_fault_pin == -1)
+    return false;
+
   return !digitalRead(_en_fault_pin);
 }
 
@@ -315,8 +337,9 @@ bool Adafruit_STSPIN220::isFault() {
  * @brief Clear fault condition by toggling enable pin
  */
 void Adafruit_STSPIN220::clearFault() {
-  if (_en_fault_pin == -1) return;
-  
+  if (_en_fault_pin == -1)
+    return;
+
   pinMode(_en_fault_pin, OUTPUT);
   digitalWrite(_en_fault_pin, LOW);
   delay(1);
@@ -328,13 +351,10 @@ void Adafruit_STSPIN220::clearFault() {
  * @brief Reset the device by toggling the STBY/RESET pin
  */
 void Adafruit_STSPIN220::reset() {
-  if (_stby_reset_pin == -1) return;
-  
+  if (_stby_reset_pin == -1)
+    return;
+
   standby(true);
   delay(1);
   standby(false);
 }
-
-
-
-
