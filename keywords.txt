@@ -1,0 +1,42 @@
+#######################################
+# Syntax Coloring Map For Adafruit_STSPIN
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Adafruit_STSPIN220	KEYWORD1
+stspin220_step_mode_t	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+setSpeed	KEYWORD2
+step	KEYWORD2
+version	KEYWORD2
+setStepMode	KEYWORD2
+getStepMode	KEYWORD2
+singleStep	KEYWORD2
+stepBlocking	KEYWORD2
+enable	KEYWORD2
+isEnabled	KEYWORD2
+standby	KEYWORD2
+isFault	KEYWORD2
+clearFault	KEYWORD2
+reset	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+STSPIN220_STEP_FULL	LITERAL1
+STSPIN220_STEP_1_2	LITERAL1
+STSPIN220_STEP_1_4	LITERAL1
+STSPIN220_STEP_1_8	LITERAL1
+STSPIN220_STEP_1_16	LITERAL1
+STSPIN220_STEP_1_32	LITERAL1
+STSPIN220_STEP_1_64	LITERAL1
+STSPIN220_STEP_1_128	LITERAL1
+STSPIN220_STEP_1_256	LITERAL1
