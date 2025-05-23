@@ -26,23 +26,23 @@
  */
 typedef enum {
   STSPIN220_STEP_FULL =
-      0x00, ///< Full step mode (MODE1=0,MODE2=0,MODE3=0,MODE4=0)
+      0b0000, ///< Full step mode (MODE4=0,MODE3=0,MODE2=0,MODE1=0)
   STSPIN220_STEP_1_2 =
-      0x0A, ///< 1/2 step mode (MODE1=1,MODE2=0,MODE3=1,MODE4=0)
+      0b0101, ///< 1/2 step mode (MODE4=0,MODE3=1,MODE2=0,MODE1=1)
   STSPIN220_STEP_1_4 =
-      0x05, ///< 1/4 step mode (MODE1=0,MODE2=1,MODE3=0,MODE4=1)
+      0b1010, ///< 1/4 step mode (MODE4=1,MODE3=0,MODE2=1,MODE1=0)
   STSPIN220_STEP_1_8 =
-      0x0D, ///< 1/8 step mode (MODE1=1,MODE2=1,MODE3=0,MODE4=1)
+      0b0111, ///< 1/8 step mode (MODE4=0,MODE3=1,MODE2=1,MODE1=1)
   STSPIN220_STEP_1_16 =
-      0x0F, ///< 1/16 step mode (MODE1=1,MODE2=1,MODE3=1,MODE4=1)
+      0b1111, ///< 1/16 step mode (MODE4=1,MODE3=1,MODE2=1,MODE1=1)
   STSPIN220_STEP_1_32 =
-      0x01, ///< 1/32 step mode (MODE1=0,MODE2=0,MODE3=0,MODE4=1)
+      0b0010, ///< 1/32 step mode (MODE4=0,MODE3=0,MODE2=1,MODE1=0)
   STSPIN220_STEP_1_64 =
-      0x07, ///< 1/64 step mode (MODE1=1,MODE2=1,MODE3=0,MODE4=1)
+      0b1011, ///< 1/64 step mode (MODE4=1,MODE3=0,MODE2=1,MODE1=1)
   STSPIN220_STEP_1_128 =
-      0x02, ///< 1/128 step mode (MODE1=0,MODE2=1,MODE3=0,MODE4=0)
+      0b0001, ///< 1/128 step mode (MODE4=0,MODE3=0,MODE2=0,MODE1=1)
   STSPIN220_STEP_1_256 =
-      0x03, ///< 1/256 step mode (MODE1=1,MODE2=1,MODE3=0,MODE4=0)
+      0b0011, ///< 1/256 step mode (MODE4=0,MODE3=0,MODE2=1,MODE1=1)
 } stspin220_step_mode_t;
 
 /*! Timing characteristics defines */
