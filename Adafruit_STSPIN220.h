@@ -64,6 +64,7 @@ public:
   // Extended STSPIN220 specific functionality
   bool setStepMode(stspin220_step_mode_t mode);
   stspin220_step_mode_t getStepMode();
+  int microstepsPerStep();
   
   void singleStep();
   void stepBlocking(int steps, unsigned long delay_us = 1000);

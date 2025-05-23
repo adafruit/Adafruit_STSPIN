@@ -116,7 +116,9 @@ void Adafruit_STSPIN220::setSpeed(long whatSpeed) {
   if (whatSpeed <= 0) {
     _step_delay = 1000000;
   } else {
-    _step_delay = ((60L * 1000L * 1000L) / _number_of_steps) / whatSpeed;
+    // Account for microstepping - more microsteps means shorter delay per step
+    int microsteps = microstepsPerStep();
+    _step_delay = ((60L * 1000L * 1000L) / (_number_of_steps * microsteps)) / whatSpeed;
   }
 }
 
@@ -173,15 +175,17 @@ bool Adafruit_STSPIN220::setStepMode(stspin220_step_mode_t mode) {
   uint8_t mode_bits = (uint8_t)mode;
   
   // Check if we can set this mode with available pins
-  if (_mode1_pin == -1 || _mode2_pin == -1) {
+  if ((_mode1_pin == -1) || (_mode2_pin == -1)) {
     // If mode1/mode2 pins not available, only allow modes where those bits are high (pulled up)
     if ((mode_bits & 0x01) == 0 || (mode_bits & 0x02) == 0) {
       return false; // Mode requires low bits on unavailable pins
     }
   }
   
+  Serial.println("reset"); delay(100);
   // Put device into standby/reset
-  standby(true);
+  digitalWrite(_stby_reset_pin, LOW);
+
   delay(1);
   
   // Set all available mode pins (MODE1, MODE2, STEP/MODE3, DIR/MODE4) 
@@ -195,7 +199,7 @@ bool Adafruit_STSPIN220::setStepMode(stspin220_step_mode_t mode) {
   digitalWrite(_dir_pin, mode_bits & 0x08);
   
   // Come out of standby to latch the mode
-  standby(false);
+  digitalWrite(_stby_reset_pin, HIGH);
   
   _step_mode = mode;
   return true;
@@ -207,6 +211,25 @@ bool Adafruit_STSPIN220::setStepMode(stspin220_step_mode_t mode) {
  */
 stspin220_step_mode_t Adafruit_STSPIN220::getStepMode() {
   return _step_mode;
+}
+
+/*!
+ * @brief Get the number of microsteps per full step for current mode
+ * @return Microsteps per full step (1, 2, 4, 8, 16, 32, 64, 128, or 256)
+ */
+int Adafruit_STSPIN220::microstepsPerStep() {
+  switch (_step_mode) {
+    case STSPIN220_STEP_FULL:     return 1;
+    case STSPIN220_STEP_1_2:      return 2;
+    case STSPIN220_STEP_1_4:      return 4;
+    case STSPIN220_STEP_1_8:      return 8;
+    case STSPIN220_STEP_1_16:     return 16;
+    case STSPIN220_STEP_1_32:     return 32;
+    case STSPIN220_STEP_1_64:     return 64;
+    case STSPIN220_STEP_1_128:    return 128;
+    case STSPIN220_STEP_1_256:    return 256;
+    default:                      return 16; // Default to 1/16 step
+  }
 }
 
 /*!
