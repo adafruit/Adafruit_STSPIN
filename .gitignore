@@ -1,0 +1,15 @@
+# Datasheet files - for reference only
+*.pdf
+*.txt
+
+# Backup files
+*~
+*.bak
+
+# IDE files
+.vscode/
+*.code-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
