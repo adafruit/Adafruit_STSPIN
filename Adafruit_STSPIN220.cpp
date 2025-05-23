@@ -36,8 +36,8 @@
  * @param step_pin Arduino pin connected to STEP (step clock) input
  * @param dir_pin Arduino pin connected to DIR (direction) input
  */
-Adafruit_STSPIN220::Adafruit_STSPIN220(int16_t number_of_steps, int16_t step_pin,
-                                       int16_t dir_pin) {
+Adafruit_STSPIN220::Adafruit_STSPIN220(int16_t number_of_steps,
+                                       int16_t step_pin, int16_t dir_pin) {
   _number_of_steps = number_of_steps;
   _step_pin = step_pin;
   _dir_pin = dir_pin;
@@ -70,9 +70,10 @@ Adafruit_STSPIN220::Adafruit_STSPIN220(int16_t number_of_steps, int16_t step_pin
  * @param stby_reset_pin Arduino pin connected to STBY/RESET pin (optional, -1
  * if not used)
  */
-Adafruit_STSPIN220::Adafruit_STSPIN220(int16_t number_of_steps, int16_t step_pin,
-                                       int16_t dir_pin, int16_t mode1_pin,
-                                       int16_t mode2_pin, int16_t en_fault_pin,
+Adafruit_STSPIN220::Adafruit_STSPIN220(int16_t number_of_steps,
+                                       int16_t step_pin, int16_t dir_pin,
+                                       int16_t mode1_pin, int16_t mode2_pin,
+                                       int16_t en_fault_pin,
                                        int16_t stby_reset_pin) {
   _number_of_steps = number_of_steps;
   _step_pin = step_pin;
@@ -123,10 +124,12 @@ void Adafruit_STSPIN220::setSpeed(int32_t whatSpeed) {
   } else {
     // Account for microstepping - more microsteps means shorter delay per step
     int16_t microsteps = microstepsPerStep();
-    _step_delay =
-        ((60L * 1000L * 1000L) / ((uint32_t)_number_of_steps * (uint32_t)microsteps)) / (uint32_t)whatSpeed;
-    
-    // Enforce minimum step delay based on STSPIN220_STCK_MAX_FREQ_MHZ (1 MHz = 1 µs minimum)
+    _step_delay = ((60L * 1000L * 1000L) /
+                   ((uint32_t)_number_of_steps * (uint32_t)microsteps)) /
+                  (uint32_t)whatSpeed;
+
+    // Enforce minimum step delay based on STSPIN220_STCK_MAX_FREQ_MHZ (1 MHz =
+    // 1 µs minimum)
     if (_step_delay < 1) {
       _step_delay = 1;
     }

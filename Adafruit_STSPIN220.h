@@ -59,10 +59,11 @@ typedef enum {
  */
 class Adafruit_STSPIN220 {
  public:
-  Adafruit_STSPIN220(int16_t number_of_steps, int16_t step_pin, int16_t dir_pin);
+  Adafruit_STSPIN220(int16_t number_of_steps, int16_t step_pin,
+                     int16_t dir_pin);
   Adafruit_STSPIN220(int16_t number_of_steps, int16_t step_pin, int16_t dir_pin,
-                     int16_t mode1_pin, int16_t mode2_pin, int16_t en_fault_pin = -1,
-                     int16_t stby_reset_pin = -1);
+                     int16_t mode1_pin, int16_t mode2_pin,
+                     int16_t en_fault_pin = -1, int16_t stby_reset_pin = -1);
 
   // Arduino Stepper library compatible interface
   void setSpeed(int32_t whatSpeed);
@@ -89,10 +90,10 @@ class Adafruit_STSPIN220 {
 
  private:
   // Arduino Stepper library compatible members
-  uint32_t _step_delay;          ///< Delay between steps in microseconds
-  int16_t _number_of_steps;      ///< Total steps per revolution
-  int32_t _step_number;          ///< Current position in steps
-  uint32_t _last_step_time;      ///< Last step timestamp
+  uint32_t _step_delay;     ///< Delay between steps in microseconds
+  int16_t _number_of_steps; ///< Total steps per revolution
+  int32_t _step_number;     ///< Current position in steps
+  uint32_t _last_step_time; ///< Last step timestamp
 
   // STSPIN220 specific pins
   int16_t _step_pin;       ///< STEP/MODE3 pin (step clock)
