@@ -58,7 +58,7 @@ typedef enum {
  *        Provides Arduino Stepper library compatible interface
  */
 class Adafruit_STSPIN220 {
-public:
+ public:
   Adafruit_STSPIN220(int number_of_steps, int step_pin, int dir_pin);
   Adafruit_STSPIN220(int number_of_steps, int step_pin, int dir_pin,
                      int mode1_pin, int mode2_pin, int en_fault_pin = -1,
@@ -87,7 +87,7 @@ public:
 
   void reset();
 
-private:
+ private:
   // Arduino Stepper library compatible members
   unsigned long _step_delay;     ///< Delay between steps in microseconds
   int _number_of_steps;          ///< Total steps per revolution

@@ -168,7 +168,9 @@ void Adafruit_STSPIN220::step(int steps_to_move) {
  * @brief Return the library version number (Arduino Stepper compatible)
  * @return Version number
  */
-int Adafruit_STSPIN220::version(void) { return 220; }
+int Adafruit_STSPIN220::version(void) {
+  return 220;
+}
 
 /*!
  * @brief Set the microstepping mode
@@ -218,7 +220,9 @@ bool Adafruit_STSPIN220::setStepMode(stspin220_step_mode_t mode) {
  * @brief Get the current microstepping mode
  * @return Current step mode
  */
-stspin220_step_mode_t Adafruit_STSPIN220::getStepMode() { return _step_mode; }
+stspin220_step_mode_t Adafruit_STSPIN220::getStepMode() {
+  return _step_mode;
+}
 
 /*!
  * @brief Get the number of microsteps per full step for current mode
@@ -226,26 +230,26 @@ stspin220_step_mode_t Adafruit_STSPIN220::getStepMode() { return _step_mode; }
  */
 int Adafruit_STSPIN220::microstepsPerStep() {
   switch (_step_mode) {
-  case STSPIN220_STEP_FULL:
-    return 1;
-  case STSPIN220_STEP_1_2:
-    return 2;
-  case STSPIN220_STEP_1_4:
-    return 4;
-  case STSPIN220_STEP_1_8:
-    return 8;
-  case STSPIN220_STEP_1_16:
-    return 16;
-  case STSPIN220_STEP_1_32:
-    return 32;
-  case STSPIN220_STEP_1_64:
-    return 64;
-  case STSPIN220_STEP_1_128:
-    return 128;
-  case STSPIN220_STEP_1_256:
-    return 256;
-  default:
-    return 16; // Default to 1/16 step
+    case STSPIN220_STEP_FULL:
+      return 1;
+    case STSPIN220_STEP_1_2:
+      return 2;
+    case STSPIN220_STEP_1_4:
+      return 4;
+    case STSPIN220_STEP_1_8:
+      return 8;
+    case STSPIN220_STEP_1_16:
+      return 16;
+    case STSPIN220_STEP_1_32:
+      return 32;
+    case STSPIN220_STEP_1_64:
+      return 64;
+    case STSPIN220_STEP_1_128:
+      return 128;
+    case STSPIN220_STEP_1_256:
+      return 256;
+    default:
+      return 16; // Default to 1/16 step
   }
 }
 
